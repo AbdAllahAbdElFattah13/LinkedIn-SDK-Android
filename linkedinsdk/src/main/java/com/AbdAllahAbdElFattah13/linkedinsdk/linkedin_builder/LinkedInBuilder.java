@@ -19,7 +19,7 @@ import java.util.Random;
 public abstract class LinkedInBuilder {
 
     private Intent intent;
-    protected String state;
+    private String state;
 
     public static final String CLIENT_ID = "client_id";
     public static final String CLIENT_SECRET_KEY = "client_secret";
@@ -34,11 +34,34 @@ public abstract class LinkedInBuilder {
 
     abstract Context getContext();
 
+    abstract LinkedInBuilder self();
+
     abstract void startActivityForResult(Intent intent, int requestCode);
 
 
     LinkedInBuilder() {
         this.intent = new Intent(getContext(), LinkedInAuthenticationActivity.class);
+    }
+
+    public LinkedInBuilder setClientID(String clientID) {
+        updateIntent(CLIENT_ID, clientID);
+        return self();
+    }
+
+    public LinkedInBuilder setClientSecret(String clientSecret) {
+        updateIntent(CLIENT_SECRET_KEY, clientSecret);
+        return self();
+    }
+
+    public LinkedInBuilder setRedirectURI(String redirectURI) {
+        updateIntent(REDIRECT_URI, redirectURI);
+        return self();
+    }
+
+    public LinkedInBuilder setState(String state) {
+        this.state = state;
+        updateIntent(STATE, state);
+        return self();
     }
 
     public void authenticate(int requestCode) {
@@ -50,7 +73,7 @@ public abstract class LinkedInBuilder {
         }
     }
 
-    void updateIntent(String key, String value) {
+    private void updateIntent(String key, String value) {
         intent.putExtra(key, value);
     }
 

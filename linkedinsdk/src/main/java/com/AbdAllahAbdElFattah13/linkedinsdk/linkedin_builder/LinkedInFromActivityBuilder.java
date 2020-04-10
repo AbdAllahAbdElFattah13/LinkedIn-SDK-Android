@@ -12,36 +12,18 @@ public final class LinkedInFromActivityBuilder extends LinkedInBuilder {
     this.activity = activity;
   }
 
-
   public static LinkedInFromActivityBuilder getInstance(Activity activity) {
     return new LinkedInFromActivityBuilder(activity);
   }
 
-  public LinkedInFromActivityBuilder setClientID(String clientID) {
-    updateIntent(CLIENT_ID, clientID);
-    return this;
-  }
-
-  public LinkedInFromActivityBuilder setClientSecret(String clientSecret) {
-    updateIntent(CLIENT_SECRET_KEY, clientSecret);
-    return this;
-  }
-
-  public LinkedInFromActivityBuilder setRedirectURI(String redirectURI) {
-    updateIntent(REDIRECT_URI, redirectURI);
-    return this;
-  }
-
-  public LinkedInFromActivityBuilder setState(String state) {
-    this.state = state;
-    updateIntent(STATE, state);
-    return this;
-  }
-
-
   @Override
   Context getContext() {
     return this.activity;
+  }
+
+  @Override
+  LinkedInBuilder self() {
+    return this;
   }
 
   @Override
