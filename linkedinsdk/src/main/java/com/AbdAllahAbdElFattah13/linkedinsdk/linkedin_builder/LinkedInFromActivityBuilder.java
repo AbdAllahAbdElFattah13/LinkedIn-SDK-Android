@@ -9,16 +9,12 @@ public final class LinkedInFromActivityBuilder extends LinkedInBuilder {
   private Activity activity;
 
   private LinkedInFromActivityBuilder(Activity activity) {
+    super(activity);
     this.activity = activity;
   }
 
   public static LinkedInFromActivityBuilder getInstance(Activity activity) {
     return new LinkedInFromActivityBuilder(activity);
-  }
-
-  @Override
-  Context getContext() {
-    return this.activity;
   }
 
   @Override

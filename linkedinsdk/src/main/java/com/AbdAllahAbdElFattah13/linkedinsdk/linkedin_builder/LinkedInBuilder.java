@@ -32,15 +32,13 @@ public abstract class LinkedInBuilder {
     public static final int ERROR_USER_DENIED = 11;
     public static final int ERROR_FAILED = 12;
 
-    abstract Context getContext();
-
     abstract LinkedInBuilder self();
 
     abstract void startActivityForResult(Intent intent, int requestCode);
 
 
-    LinkedInBuilder() {
-        this.intent = new Intent(getContext(), LinkedInAuthenticationActivity.class);
+    LinkedInBuilder(Context context) {
+        this.intent = new Intent(context, LinkedInAuthenticationActivity.class);
     }
 
     public LinkedInBuilder setClientID(String clientID) {
