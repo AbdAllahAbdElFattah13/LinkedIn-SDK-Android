@@ -33,11 +33,11 @@ ext {
     libVersionCode = 1
     libVersionName = '1.0.0'
 
-    libPomUrl = 'https://github.com/shantanu-deshmukh/LinkedIn-SDK-Android'
-    libGithubRepo = 'shantanu-deshmukh/LinkedIn-SDK-Android'
+    libPomUrl = 'https://github.com/AbdAllahAbdElFattah13/LinkedIn-SDK-Android'
+    libGithubRepo = 'AbdAllahAbdElFattah13/LinkedIn-SDK-Android'
     libModuleName = 'linkedinsdk'
     libModuleDesc = 'LinkedIn Login SDK for Android (UnOfficial)'
-    libBintrayName = 'linkedinsdk'
+    libBintrayName = 'linkedin-sdk'
 
 
 }
