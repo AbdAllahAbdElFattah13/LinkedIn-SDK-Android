@@ -1,4 +1,4 @@
-package com.shantanudeshmukh.linkedinsdk;
+package com.AbdAllahAbdElFattah13.linkedinsdk;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +14,9 @@ import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.shantanudeshmukh.linkedinsdk.helpers.LinkedInUser;
-import com.shantanudeshmukh.linkedinsdk.helpers.OnBasicProfileListener;
-import com.shantanudeshmukh.linkedinsdk.helpers.RequestHandler;
+import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.LinkedInUser;
+import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.OnBasicProfileListener;
+import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.RequestHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;

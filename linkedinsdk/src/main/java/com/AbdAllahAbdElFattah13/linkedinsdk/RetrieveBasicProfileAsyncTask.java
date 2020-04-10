@@ -1,11 +1,11 @@
-package com.shantanudeshmukh.linkedinsdk;
+package com.AbdAllahAbdElFattah13.linkedinsdk;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.shantanudeshmukh.linkedinsdk.helpers.LinkedInUser;
-import com.shantanudeshmukh.linkedinsdk.helpers.OnBasicProfileListener;
-import com.shantanudeshmukh.linkedinsdk.helpers.RequestHandler;
+import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.LinkedInUser;
+import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.OnBasicProfileListener;
+import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.RequestHandler;
 
 import org.json.JSONException;
 import org.json.JSONObject;

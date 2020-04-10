@@ -1,4 +1,4 @@
-package com.shantanudeshmukh.linkedinsdk.helpers;
+package com.AbdAllahAbdElFattah13.linkedinsdk.helpers;
 
 public interface OnBasicProfileListener {
     void onDataRetrievalStart();

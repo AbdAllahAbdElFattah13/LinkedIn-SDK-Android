@@ -1,4 +1,4 @@
-package com.shantanudeshmukh.linkedinsdk;
+package com.AbdAllahAbdElFattah13.linkedinsdk;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,7 +6,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.shantanudeshmukh.linkedinsdk.helpers.OnBasicProfileListener;
+import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.OnBasicProfileListener;
 
 import java.util.Random;
 

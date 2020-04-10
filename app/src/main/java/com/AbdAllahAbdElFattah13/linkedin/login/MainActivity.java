@@ -1,4 +1,4 @@
-package com.shantanudeshmukh.linkedin.login;
+package com.AbdAllahAbdElFattah13.linkedin.login;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,9 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.shantanudeshmukh.linkedinsdk.helpers.LinkedInUser;
-import com.shantanudeshmukh.linkedinsdk.helpers.OnBasicProfileListener;
-import com.shantanudeshmukh.linkedinsdk.LinkedInBuilder;
+import com.AbdAllahAbdElFattah13.linkedin.login.R;
+import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.LinkedInUser;
+import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.OnBasicProfileListener;
+import com.AbdAllahAbdElFattah13.linkedinsdk.LinkedInBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;

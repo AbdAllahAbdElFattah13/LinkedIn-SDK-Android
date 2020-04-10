@@ -1,4 +1,4 @@
-package com.shantanudeshmukh.linkedinsdk;
+package com.AbdAllahAbdElFattah13.linkedinsdk;
 
 import org.junit.Test;
 
