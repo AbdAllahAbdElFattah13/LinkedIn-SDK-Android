@@ -1,8 +1,5 @@
 package com.AbdAllahAbdElFattah13.linkedinsdk;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,9 +11,13 @@ import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.LinkedInUser;
 import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.OnBasicProfileListener;
 import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.RequestHandler;
+import com.AbdAllahAbdElFattah13.linkedinsdk.linkedin_builder.LinkedInFromActivityBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,10 +63,10 @@ public class LinkedInAuthenticationActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-        CLIENT_ID = getIntent().getStringExtra(LinkedInBuilder.CLIENT_ID);
-        CLIENT_SECRET_KEY = getIntent().getStringExtra(LinkedInBuilder.CLIENT_SECRET_KEY);
-        REDIRECT_URI = getIntent().getStringExtra(LinkedInBuilder.REDIRECT_URI);
-        STATE = getIntent().getStringExtra(LinkedInBuilder.STATE);
+        CLIENT_ID = getIntent().getStringExtra(LinkedInFromActivityBuilder.CLIENT_ID);
+        CLIENT_SECRET_KEY = getIntent().getStringExtra(LinkedInFromActivityBuilder.CLIENT_SECRET_KEY);
+        REDIRECT_URI = getIntent().getStringExtra(LinkedInFromActivityBuilder.REDIRECT_URI);
+        STATE = getIntent().getStringExtra(LinkedInFromActivityBuilder.STATE);
 
         webView = findViewById(R.id.web_view_linkedin_login);
         webView.requestFocus(View.FOCUS_DOWN);
@@ -91,7 +92,7 @@ public class LinkedInAuthenticationActivity extends AppCompatActivity {
                     Uri uri = Uri.parse(authorizationUrl);
                     String stateToken = uri.getQueryParameter(STATE_PARAM);
                     if (stateToken == null || !stateToken.equals(STATE)) {
-                        Log.e(LinkedInBuilder.TAG, "State token doesn't match");
+                        Log.e(LinkedInFromActivityBuilder.TAG, "State token doesn't match");
                         return true;
                     }
 
@@ -99,7 +100,7 @@ public class LinkedInAuthenticationActivity extends AppCompatActivity {
                     String authorizationToken = uri.getQueryParameter(RESPONSE_TYPE_VALUE);
                     if (authorizationToken == null) {
                         Intent intent = new Intent();
-                        intent.putExtra("err_code", LinkedInBuilder.ERROR_USER_DENIED);
+                        intent.putExtra("err_code", LinkedInFromActivityBuilder.ERROR_USER_DENIED);
                         intent.putExtra("err_message", "Authorization not received. User didn't allow access to account.");
                         setResult(Activity.RESULT_CANCELED, intent);
                         finish();
@@ -160,7 +161,7 @@ public class LinkedInAuthenticationActivity extends AppCompatActivity {
 
             if (linkedInUser.getAccessToken() != null) {
 
-                LinkedInBuilder.retrieveBasicProfile(linkedInUser.getAccessToken(), linkedInUser.getAccessTokenExpiry(), new OnBasicProfileListener() {
+                LinkedInFromActivityBuilder.retrieveBasicProfile(linkedInUser.getAccessToken(), linkedInUser.getAccessTokenExpiry(), new OnBasicProfileListener() {
                     @Override
                     public void onDataRetrievalStart() {
                     }
@@ -189,7 +190,7 @@ public class LinkedInAuthenticationActivity extends AppCompatActivity {
 
                 hideProgressDialog();
                 Intent intent = new Intent();
-                intent.putExtra("err_code", LinkedInBuilder.ERROR_FAILED);
+                intent.putExtra("err_code", LinkedInFromActivityBuilder.ERROR_FAILED);
                 intent.putExtra("err_message", "AUTHORIZATION FAILED");
                 setResult(Activity.RESULT_CANCELED, intent);
                 finish();
@@ -218,10 +219,10 @@ public class LinkedInAuthenticationActivity extends AppCompatActivity {
                 linkedInUser.setAccessToken(accessToken1);
                 linkedInUser.setAccessTokenExpiry(expireDate);
             } else {
-                Log.e(LinkedInBuilder.TAG, "Access Token Expired or Doesn't exist");
+                Log.e(LinkedInFromActivityBuilder.TAG, "Access Token Expired or Doesn't exist");
             }
         } else {
-            Log.e(LinkedInBuilder.TAG, "Failed To Retrieve Access Token");
+            Log.e(LinkedInFromActivityBuilder.TAG, "Failed To Retrieve Access Token");
         }
     }
 

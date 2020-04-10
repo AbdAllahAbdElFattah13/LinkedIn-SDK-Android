@@ -6,19 +6,20 @@ import android.util.Log;
 import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.LinkedInUser;
 import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.OnBasicProfileListener;
 import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.RequestHandler;
+import com.AbdAllahAbdElFattah13.linkedinsdk.linkedin_builder.LinkedInFromActivityBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
-class RetrieveBasicProfileAsyncTask extends AsyncTask<String, Void, Boolean> {
+public class RetrieveBasicProfileAsyncTask extends AsyncTask<String, Void, Boolean> {
 
     private static final String TAG = "LinkedInAuth";
     private OnBasicProfileListener basicProfileListener;
     private LinkedInUser linkedInUser = new LinkedInUser();
 
-    RetrieveBasicProfileAsyncTask(String accessToken, long accessTokenExpiry, OnBasicProfileListener basicProfileListener) {
+    public RetrieveBasicProfileAsyncTask(String accessToken, long accessTokenExpiry, OnBasicProfileListener basicProfileListener) {
         this.basicProfileListener = basicProfileListener;
         this.linkedInUser.setAccessToken(accessToken);
         this.linkedInUser.setAccessTokenExpiry(accessTokenExpiry);
@@ -64,7 +65,7 @@ class RetrieveBasicProfileAsyncTask extends AsyncTask<String, Void, Boolean> {
         if (didSuccess) {
             basicProfileListener.onDataSuccess(linkedInUser);
         } else {
-            basicProfileListener.onDataFailed(LinkedInBuilder.ERROR_FAILED, "AUTHORIZATION FAILED");
+            basicProfileListener.onDataFailed(LinkedInFromActivityBuilder.ERROR_FAILED, "AUTHORIZATION FAILED");
         }
     }
 

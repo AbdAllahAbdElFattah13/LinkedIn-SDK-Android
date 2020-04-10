@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.AbdAllahAbdElFattah13.linkedin.login.R;
 import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.LinkedInUser;
 import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.OnBasicProfileListener;
-import com.AbdAllahAbdElFattah13.linkedinsdk.LinkedInBuilder;
+import com.AbdAllahAbdElFattah13.linkedinsdk.linkedin_builder.LinkedInFromActivityBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                LinkedInBuilder.getInstance(MainActivity.this)
+                LinkedInFromActivityBuilder.getInstance(MainActivity.this)
                         .setClientID(clientID)
                         .setClientSecret(clientSecret)
                         .setRedirectURI(redirectUrl)
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
            @Override
            public void onClick(View v) {
 
-               LinkedInBuilder.retrieveBasicProfile(accessToken, accessTokenExpiry, new OnBasicProfileListener() {
+               LinkedInFromActivityBuilder.retrieveBasicProfile(accessToken, accessTokenExpiry, new OnBasicProfileListener() {
                    @Override
                    public void onDataRetrievalStart() {
 
@@ -139,10 +139,10 @@ public class MainActivity extends AppCompatActivity {
                 //print the error
                 Log.wtf("LINKEDIN ERR", data.getStringExtra("err_message"));
 
-                if (data.getIntExtra("err_code", 0) == LinkedInBuilder.ERROR_USER_DENIED) {
+                if (data.getIntExtra("err_code", 0) == LinkedInFromActivityBuilder.ERROR_USER_DENIED) {
                     //user denied access to account
                     Toast.makeText(this, "User Denied Access", Toast.LENGTH_SHORT).show();
-                } else if (data.getIntExtra("err_code", 0) == LinkedInBuilder.ERROR_USER_DENIED) {
+                } else if (data.getIntExtra("err_code", 0) == LinkedInFromActivityBuilder.ERROR_USER_DENIED) {
                     //some error occured
                     Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
                 }
