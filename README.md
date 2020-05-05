@@ -36,38 +36,17 @@ Variable names in JAVA cannot have `~`, so you cannot use dynamic JSON parsers O
 
 Adding the SDK to your Project
 ===============================
-Method 1: Using JCenter
+Using JCenter
 -----------------------
 Just add the dependency to your app level `build.gradle` file
 
 ```gradle
 dependencies {
-    implementation 'com.shantanudeshmukh:linkedinsdk:1.0.0'
+    implementation 'com.AbdAllahAbdElFattah13:linkedinsdk:1.0.0'
 }
 ```
 
 > If you are getting `Failed to resolve` ERROR, make sure that Jcenter repository is added to your project level `build.gradle` file. This is done by default in recent versions of Android Studio.
-
-Method 2: Using Jitpack
------------------------
-1. Make sure the Jitpack repository is present in your project level `build.gradle` file
-
-```gradle
-allprojects {
-    repositories {
-        ...
-        maven { url 'https://jitpack.io' }
-    }
-}
-```
-
-2. Add the dependency to your app level `build.gradle` file
-
-```gradle
-dependencies {
-    implementation 'com.github.shantanu-deshmukh:LinkedIn-SDK-Android:1:0'
-}
-```
 
 Usage
 =====
@@ -175,14 +154,3 @@ LinkedInBuilder.getInstance(MainActivity.this)
 Contributing
 ============
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Support
-=========
-If you need any help, feel free to connect with me on twitter 
-<a href="https://twitter.com/intent/tweet?screen_name=askShantanu&ref_src=twsrc%5Etfw" class="twitter-mention-button" data-show-count="false">@askShantanu</a>
-
-OR 
-
-Follow me for latest updates <a href="https://twitter.com/askShantanu?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">@askShantanu</a>.
-
-See my other work at [shantanudeshmukh.com](https://shantanudeshmukh.com)
