@@ -1,5 +1,6 @@
 package com.AbdAllahAbdElFattah13.linkedinsdk;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -54,7 +55,7 @@ public class LinkedInAuthenticationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sh_linkedin_activity_linkedin_authentication);
+        setContentView(R.layout.linkedin_activity_linkedin_authentication);
 
         //enable fullscreen mode
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -123,6 +124,7 @@ public class LinkedInAuthenticationActivity extends AppCompatActivity {
     }
 
 
+    @SuppressLint("StaticFieldLeak")
     private class RetrieveDataAsyncTask extends AsyncTask<String, Void, Boolean> {
 
         @Override
@@ -156,7 +158,6 @@ public class LinkedInAuthenticationActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean didSuccess) {
             super.onPostExecute(didSuccess);
-
 
 
             if (linkedInUser.getAccessToken() != null) {
@@ -267,7 +268,7 @@ public class LinkedInAuthenticationActivity extends AppCompatActivity {
             if (progressDialog == null) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(LinkedInAuthenticationActivity.this);
                 builder.setCancelable(false); // if you want user to wait for some process to finish,
-                builder.setView(R.layout.sh_linkedin_layout_progress_dialog);
+                builder.setView(R.layout.linkedin_layout_progress_dialog);
                 progressDialog = builder.create();
             }
             progressDialog.show();

@@ -7,7 +7,7 @@ buildscript {
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.android.tools.build:gradle:3.6.3'
 
         // Required plugins added to classpath to facilitate pushing to JCenter/Bintray
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
@@ -24,7 +24,7 @@ ext {
     minSdkVersion = 15
     compileSdkVersion = targetSdkVersion
     junitVersion = 4.12
-    androidxVersion = '1.0.2'
+    androidxVersion = '1.1.0'
     junitVersion = '4.12'
     testRunnerVersion = "1.2.0"
     espressoCoreVersion = "3.2.0"
