@@ -7,15 +7,13 @@ Table of contents
 =================
 - [Why this UnOfficial SDK?](#why-this-unofficial-sdk-)
 - [Adding the SDK to your Project](#adding-the-sdk-to-your-project)
-  * [Method 1: Using JCenter](#method-1--using-jcenter)
-  * [Method 2: Using Jitpack](#method-2--using-jitpack)
+  * [Using JCenter](#--using-jcenter)
 - [Usage](#usage)
   * [Authenticating](#authenticating)
   * [Retrieving updated profile](#retrieving-updated-profile)
     + [LinkedInUser Class](#linkedinuser-class)
 - [Security](#security)
 - [Contributing](#contributing)
-- [Support](#support)
 
 
 Why this UnOfficial SDK?
