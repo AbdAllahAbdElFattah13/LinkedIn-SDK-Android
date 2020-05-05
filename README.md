@@ -2,6 +2,8 @@
 
 A lightweight android library to implement Login with LinkedIn in your Android app.
 
+This was initially Based on [shantanu-deshmukh/LinkedIn-SDK-Android](https://github.com/shantanu-deshmukh/LinkedIn-SDK-Android)
+
 
 Table of contents
 =================
