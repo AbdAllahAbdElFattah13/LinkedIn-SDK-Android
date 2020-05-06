@@ -2,11 +2,12 @@
 
 A lightweight android library to implement Login with LinkedIn in your Android app.
 
-This was initially Based on [shantanu-deshmukh/LinkedIn-SDK-Android](https://github.com/shantanu-deshmukh/LinkedIn-SDK-Android)
+Inspired by [shantanu-deshmukh/LinkedIn-SDK-Android](https://github.com/shantanu-deshmukh/LinkedIn-SDK-Android)
 
 
 Table of contents
 =================
+- [Main changes over the original](#Main-changes-over-the-original)
 - [Why this UnOfficial SDK?](#why-this-unofficial-sdk-)
 - [Adding the SDK to your Project](#adding-the-sdk-to-your-project)
   * [Using JCenter](#--using-jcenter)
@@ -18,9 +19,16 @@ Table of contents
 - [Contributing](#contributing)
 
 
+Main changes over the original
+========================
+- [x] Add support for usage from fragments.
+- [ ] Better error handling.
+- [ ] Kotlin-lize the SDK since now Kotlin is the main dev language for Android.
+
+
 Why this UnOfficial SDK?
 ========================
-* Existing SDKs have been discontinued. [Read More >>](https://engineering.linkedin.com/blog/2018/12/developer-program-updates)
+* [Existing SDKs have been discontinued.](https://engineering.linkedin.com/blog/2018/12/developer-program-updates)
 * [Official docs](https://developer.linkedin.com/docs/android-sdk-auth) on developer.linkedin.com are outdated. 
 * Weird JSON returned by the new APIs. See following example: 
 ```json
@@ -61,13 +69,23 @@ Authenticating
 ```
 
 2. Initiate Login Request. (You might want to do this on click of a login button)
-```Java
-LinkedInBuilder.getInstance(MainActivity.this)
-        .setClientID("<YOUR_CLIENT_ID_HERE>")
-        .setClientSecret("<YOUR_CLIENT_SECRET_HERE>")
-        .setRedirectURI("<YOUR_REDIRECT_URL_HERE>")
-        .authenticate(LINKEDIN_REQUEST_CODE);
-```
+    * From within fragments:
+    ```Java
+    LinkedInFromFragmentBuilder.getInstance(MainActivity.this)
+            .setClientID("<YOUR_CLIENT_ID_HERE>")
+            .setClientSecret("<YOUR_CLIENT_SECRET_HERE>")
+            .setRedirectURI("<YOUR_REDIRECT_URL_HERE>")
+            .authenticate(LINKEDIN_REQUEST_CODE);
+    ```
+
+    * From within activities:
+    ```Java
+    LinkedInFromActivityBuilder.getInstance(MainActivity.this)
+            .setClientID("<YOUR_CLIENT_ID_HERE>")
+            .setClientSecret("<YOUR_CLIENT_SECRET_HERE>")
+            .setRedirectURI("<YOUR_REDIRECT_URL_HERE>")
+            .authenticate(LINKEDIN_REQUEST_CODE);
+    ```
 > You can download the official Sign In with LinkedIn button images from [here](https://content.linkedin.com/content/dam/developer/branding/signin_with_linkedin-buttons.zip)
 
 3. Handling Result: the sdk returns `LinkedInUser` object which contains the result data.
@@ -134,7 +152,7 @@ LinkedInBuilder.retrieveBasicProfile(linkedInUser.getAccessToken(), linkedInUser
 | String    | `getLastName()`      | Returns last name of the user|
 | String    | `getProfileUrl()`      | Returns profile url of the user|
 | String    | `getAccessToken()`      | Returns access token that can be used to retrive data later. You might want to store it for later use.|
-| long      | `getAccessTokenExpiry()`      | Expiry timestamp of the access token |
+| long      | `getAccessTokenExpiry()`      | Expiry timestamp of the access token in Millisecond. |
 
 
 
@@ -142,8 +160,19 @@ Security
 ========
 To protect against [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) during authorization, the sdk uses a 16 character token by default. If you want to use your own CSRF token, then use the `setState` method of the `LinkedInBuilder` class.
 
+* From within fragments:
 ```Java
-LinkedInBuilder.getInstance(MainActivity.this)
+LinkedInFromFragmentBuilder.getInstance(MainActivity.this)
+        .setClientID("<YOUR_CLIENT_ID_HERE>")
+        .setClientSecret("<YOUR_CLIENT_SECRET_HERE>")
+        .setRedirectURI("<YOUR_REDIRECT_URL_HERE>")
+        .setState("<YOUR_CSRF_TOKEN_HERE>")
+        .authenticate(LINKEDIN_REQUEST_CODE);
+```
+
+* From within activities:
+```Java
+LinkedInFromActivityBuilder.getInstance(MainActivity.this)
         .setClientID("<YOUR_CLIENT_ID_HERE>")
         .setClientSecret("<YOUR_CLIENT_SECRET_HERE>")
         .setRedirectURI("<YOUR_REDIRECT_URL_HERE>")
