@@ -8,7 +8,7 @@ import com.AbdAllahAbdElFattah13.domain.utils.RequestHandler
 import org.json.JSONObject
 import java.util.*
 
-class RetrieveAccessTokenUseCase : UseCase<RetrieveAccessTokenUseCase.RetrieveAccessTokenInputs, LinkedInAccessTokenInfo>() {
+class RetrieveAccessTokenUseCase(private val requestHandler: RequestHandler) : UseCase<RetrieveAccessTokenUseCase.RetrieveAccessTokenInputs, LinkedInAccessTokenInfo>() {
 
     private fun getAccessTokenEndpoint(inputs: RetrieveAccessTokenInputs): String {
         return (LinkedInConst.ACCESS_TOKEN_URL
@@ -28,8 +28,7 @@ class RetrieveAccessTokenUseCase : UseCase<RetrieveAccessTokenUseCase.RetrieveAc
         if (input == null) throw RetrieveAccessTokenError.NullInput("RetrieveAccessTokenUseCase inputs can't be null!")
 
         val accessTokenEndpoint = getAccessTokenEndpoint(input)
-        //RequestHandler should be injected to ease testability!
-        val resultString = RequestHandler.sendPost(accessTokenEndpoint, JSONObject())
+        val resultString = requestHandler.sendPost(accessTokenEndpoint, JSONObject())
         if (resultString != null) {
             val resultJson = JSONObject(resultString)
             val expiresIn = if (resultJson.has("expires_in")) resultJson.getInt("expires_in") else 0
