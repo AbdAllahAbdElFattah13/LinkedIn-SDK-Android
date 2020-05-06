@@ -74,19 +74,19 @@ public class LinkedInAuthenticationActivity extends AppCompatActivity {
         webView.clearHistory();
         webView.clearCache(true);
 
-        showProgressDialog();
+        setProgressDialogVisibility(true);
 
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                hideProgressDialog();
+                setProgressDialogVisibility(false);
             }
 
             //to support below Android N we need to use the deprecated method only
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String authorizationUrl) {
 
-                showProgressDialog();
+                setProgressDialogVisibility(true);
 
                 if (authorizationUrl.startsWith(REDIRECT_URI)) {
 
@@ -130,7 +130,7 @@ public class LinkedInAuthenticationActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            showProgressDialog();
+            setProgressDialogVisibility(true);
         }
 
         @Override
@@ -169,7 +169,7 @@ public class LinkedInAuthenticationActivity extends AppCompatActivity {
 
                     @Override
                     public void onDataSuccess(LinkedInUser linkedInUser) {
-                        hideProgressDialog();
+                        setProgressDialogVisibility(false);
                         Intent intent = new Intent();
                         intent.putExtra("social_login", linkedInUser);
                         setResult(Activity.RESULT_OK, intent);
@@ -178,7 +178,7 @@ public class LinkedInAuthenticationActivity extends AppCompatActivity {
 
                     @Override
                     public void onDataFailed(int errCode, String errMessage) {
-                        hideProgressDialog();
+                        setProgressDialogVisibility(false);
                         Intent intent = new Intent();
                         intent.putExtra("err_code", errCode);
                         intent.putExtra("err_message", errMessage);
@@ -189,7 +189,7 @@ public class LinkedInAuthenticationActivity extends AppCompatActivity {
 
             } else {
 
-                hideProgressDialog();
+                setProgressDialogVisibility(false);
                 Intent intent = new Intent();
                 intent.putExtra("err_code", LinkedInFromActivityBuilder.ERROR_FAILED);
                 intent.putExtra("err_message", "AUTHORIZATION FAILED");
@@ -263,21 +263,21 @@ public class LinkedInAuthenticationActivity extends AppCompatActivity {
                 + AMPERSAND + "scope=r_liteprofile%20r_emailaddress";
     }
 
-    private void showProgressDialog() {
+    private void setProgressDialogVisibility(boolean show) {
         if (!LinkedInAuthenticationActivity.this.isFinishing()) {
-            if (progressDialog == null) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(LinkedInAuthenticationActivity.this);
-                builder.setCancelable(false); // if you want user to wait for some process to finish,
-                builder.setView(R.layout.linkedin_layout_progress_dialog);
-                progressDialog = builder.create();
+            if (show) {
+                if (progressDialog == null) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LinkedInAuthenticationActivity.this);
+                    builder.setCancelable(false); // if you want user to wait for some process to finish,
+                    builder.setView(R.layout.linkedin_layout_progress_dialog);
+                    progressDialog = builder.create();
+                }
+                progressDialog.show();
+            } else {
+                if (progressDialog != null) {
+                    progressDialog.dismiss();
+                }
             }
-            progressDialog.show();
-        }
-    }
-
-    private void hideProgressDialog() {
-        if (!LinkedInAuthenticationActivity.this.isFinishing() && progressDialog != null) {
-            progressDialog.dismiss();
         }
     }
 }
