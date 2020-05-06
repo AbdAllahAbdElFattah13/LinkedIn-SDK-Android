@@ -1,10 +1,10 @@
-package com.AbdAllahAbdElFattah13.domain.usecases.retrieve_access_token.usecases
+package com.AbdAllahAbdElFattah13.linkedinsdk.domain.usecases.retrieve_access_token.usecases
 
-import com.AbdAllahAbdElFattah13.domain.abstracts.UseCase
-import com.AbdAllahAbdElFattah13.domain.usecases.retrieve_access_token.models.LinkedInAccessTokenInfo
-import com.AbdAllahAbdElFattah13.domain.usecases.retrieve_access_token.models.errors.RetrieveAccessTokenError
-import com.AbdAllahAbdElFattah13.domain.utils.LinkedInConst
-import com.AbdAllahAbdElFattah13.domain.utils.RequestHandler
+import com.AbdAllahAbdElFattah13.linkedinsdk.domain.abstracts.UseCase
+import com.AbdAllahAbdElFattah13.linkedinsdk.domain.usecases.retrieve_access_token.models.LinkedInAccessTokenInfo
+import com.AbdAllahAbdElFattah13.linkedinsdk.domain.usecases.retrieve_access_token.models.errors.RetrieveAccessTokenError
+import com.AbdAllahAbdElFattah13.linkedinsdk.domain.utils.LinkedInConst
+import com.AbdAllahAbdElFattah13.linkedinsdk.domain.utils.RequestHandler
 import org.json.JSONObject
 import java.util.*
 

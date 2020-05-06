@@ -1,12 +1,12 @@
-package com.AbdAllahAbdElFattah13.domain.usecases.retrieve_basic_profile.usecase
+package com.AbdAllahAbdElFattah13.linkedinsdk.domain.usecases.retrieve_basic_profile.usecase
 
 import android.util.Log
-import com.AbdAllahAbdElFattah13.domain.abstracts.UseCase
-import com.AbdAllahAbdElFattah13.domain.usecases.retrieve_access_token.models.LinkedInAccessTokenInfo
-import com.AbdAllahAbdElFattah13.domain.usecases.retrieve_basic_profile.models.LinkedInBasicProfileInfo
-import com.AbdAllahAbdElFattah13.domain.usecases.retrieve_basic_profile.models.error.RetrieveBasicProfileInfoError
-import com.AbdAllahAbdElFattah13.domain.utils.RequestHandler
-import com.AbdAllahAbdElFattah13.domain.utils.RequestHandler.sendGet
+import com.AbdAllahAbdElFattah13.linkedinsdk.domain.abstracts.UseCase
+import com.AbdAllahAbdElFattah13.linkedinsdk.domain.usecases.retrieve_access_token.models.LinkedInAccessTokenInfo
+import com.AbdAllahAbdElFattah13.linkedinsdk.domain.usecases.retrieve_basic_profile.models.LinkedInBasicProfileInfo
+import com.AbdAllahAbdElFattah13.linkedinsdk.domain.usecases.retrieve_basic_profile.models.error.RetrieveBasicProfileInfoError
+import com.AbdAllahAbdElFattah13.linkedinsdk.domain.utils.RequestHandler
+import com.AbdAllahAbdElFattah13.linkedinsdk.domain.utils.RequestHandler.sendGet
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException

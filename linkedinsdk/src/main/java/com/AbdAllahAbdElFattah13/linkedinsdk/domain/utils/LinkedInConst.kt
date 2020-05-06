@@ -1,4 +1,4 @@
-package com.AbdAllahAbdElFattah13.domain.utils
+package com.AbdAllahAbdElFattah13.linkedinsdk.domain.utils
 
 object LinkedInConst {
     const val AUTHORIZATION_URL = "https://www.linkedin.com/uas/oauth2/authorization"

@@ -1,8 +1,8 @@
-package com.AbdAllahAbdElFattah13.domain.usecases
+package com.AbdAllahAbdElFattah13.linkedinsdk.domain.usecases
 
 import android.net.Uri
-import com.AbdAllahAbdElFattah13.domain.abstracts.UseCase
-import com.AbdAllahAbdElFattah13.domain.utils.LinkedInConst
+import com.AbdAllahAbdElFattah13.linkedinsdk.domain.abstracts.UseCase
+import com.AbdAllahAbdElFattah13.linkedinsdk.domain.utils.LinkedInConst
 
 class RetrieveAuthorizationTokenFromUriUseCase : UseCase<Uri, String?>() {
     override fun run(input: Uri?): String? {

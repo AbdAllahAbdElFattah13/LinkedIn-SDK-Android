@@ -1,4 +1,4 @@
-package com.AbdAllahAbdElFattah13.domain.abstracts
+package com.AbdAllahAbdElFattah13.linkedinsdk.domain.abstracts
 
 abstract class UseCase<in Input, Output> {
 

@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.LinkedInUser;
 import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.OnBasicProfileListener;
-import com.AbdAllahAbdElFattah13.domain.utils.RequestHandler;
+import com.AbdAllahAbdElFattah13.linkedinsdk.domain.utils.RequestHandler;
 import com.AbdAllahAbdElFattah13.linkedinsdk.linkedin_builder.LinkedInFromActivityBuilder;
 
 import org.json.JSONException;

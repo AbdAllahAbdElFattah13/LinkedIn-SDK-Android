@@ -1,4 +1,4 @@
-package com.AbdAllahAbdElFattah13.domain.utils
+package com.AbdAllahAbdElFattah13.linkedinsdk.domain.utils
 
 import android.os.Handler
 import android.os.Looper

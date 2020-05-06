@@ -1,4 +1,4 @@
-package com.AbdAllahAbdElFattah13.domain.usecases.retrieve_access_token.models.errors
+package com.AbdAllahAbdElFattah13.linkedinsdk.domain.usecases.retrieve_access_token.models.errors
 
 sealed class RetrieveAccessTokenError(msg: String) : RuntimeException("RetrieveAccessTokenError: $msg") {
 
