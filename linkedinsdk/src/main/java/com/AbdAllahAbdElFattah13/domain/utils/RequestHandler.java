@@ -1,4 +1,4 @@
-package com.AbdAllahAbdElFattah13.linkedinsdk.helpers;
+package com.AbdAllahAbdElFattah13.domain.utils;
 
 import android.util.Log;
 

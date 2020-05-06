@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.LinkedInUser;
 import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.OnBasicProfileListener;
-import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.RequestHandler;
+import com.AbdAllahAbdElFattah13.domain.utils.RequestHandler;
 import com.AbdAllahAbdElFattah13.linkedinsdk.linkedin_builder.LinkedInFromActivityBuilder;
 
 import org.json.JSONException;
@@ -91,6 +91,7 @@ public class LinkedInAuthenticationActivity extends AppCompatActivity {
                 if (authorizationUrl.startsWith(REDIRECT_URI)) {
 
                     Uri uri = Uri.parse(authorizationUrl);
+                    //vm.onRedirect(uri);
                     String stateToken = uri.getQueryParameter(STATE_PARAM);
                     if (stateToken == null || !stateToken.equals(STATE)) {
                         Log.e(LinkedInFromActivityBuilder.TAG, "State token doesn't match");
