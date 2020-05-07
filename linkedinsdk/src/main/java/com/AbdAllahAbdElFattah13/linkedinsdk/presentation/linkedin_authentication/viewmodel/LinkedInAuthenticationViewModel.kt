@@ -3,6 +3,7 @@ package com.AbdAllahAbdElFattah13.linkedinsdk.presentation.linkedin_authenticati
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.AbdAllahAbdElFattah13.linkedinsdk.domain.usecases.retrieve_access_token.models.errors.RetrieveAccessTokenError
 import com.AbdAllahAbdElFattah13.linkedinsdk.domain.usecases.retrieve_access_token.usecases.RetrieveAccessTokenUseCase
 import com.AbdAllahAbdElFattah13.linkedinsdk.domain.usecases.retrieve_basic_profile.models.error.RetrieveBasicProfileInfoError
@@ -55,5 +56,24 @@ class LinkedInAuthenticationViewModel(
             }
         }
     }
+}
 
+@Suppress("UNCHECKED_CAST")
+class LinkedInAuthenticationViewModelFactory constructor(
+        private val initializationInfo: LinkedInInitializationInfo,
+        private val retrieveAccessTokenUseCase: RetrieveAccessTokenUseCase,
+        private val retrieveBasicProfileInfoUseCase: RetrieveBasicProfileInfoUseCase,
+        private val executors: Executors
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(LinkedInAuthenticationViewModel::class.java)) {
+            return (LinkedInAuthenticationViewModel(
+                    initializationInfo,
+                    retrieveAccessTokenUseCase,
+                    retrieveBasicProfileInfoUseCase,
+                    executors
+            )) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class!")
+    }
 }
