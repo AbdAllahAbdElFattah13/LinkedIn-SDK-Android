@@ -14,4 +14,11 @@ object LinkedInConst {
     const val QUESTION_MARK = "?"
     const val AMPERSAND = "&"
     const val EQUALS = "="
+
+    fun getAuthorizationUrl(clientId: String, redirectUri: String, state: String): String = (AUTHORIZATION_URL
+            + QUESTION_MARK + RESPONSE_TYPE_PARAM + EQUALS + RESPONSE_TYPE_VALUE
+            + AMPERSAND + CLIENT_ID_PARAM + EQUALS + clientId
+            + AMPERSAND + STATE_PARAM + EQUALS + state
+            + AMPERSAND + REDIRECT_URI_PARAM + EQUALS + redirectUri
+            + AMPERSAND + "scope=r_liteprofile%20r_emailaddress")
 }

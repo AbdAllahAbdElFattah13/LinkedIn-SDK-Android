@@ -1,8 +1,5 @@
 package com.AbdAllahAbdElFattah13.linkedin.login;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,16 +12,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.AbdAllahAbdElFattah13.linkedinsdk.ui.LinkedInUser;
-import com.AbdAllahAbdElFattah13.linkedinsdk.ui.OnBasicProfileListener;
 import com.AbdAllahAbdElFattah13.linkedinsdk.ui.linkedin_builder.LinkedInFromActivityBuilder;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -37,11 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView ivUserPic;
     private  Button btnLogin;
-    private Button btnGetUpdatedInfo;
     private TextView tvFName, tvLName, tvEmail;
-
-    private String accessToken;
-    private long accessTokenExpiry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getCredentials();
-
 
         ivUserPic = findViewById(R.id.iv_user_pic);
         btnLogin = findViewById(R.id.btn_login);
@@ -69,41 +58,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-       btnGetUpdatedInfo = findViewById(R.id.btn_get_update);
-       btnGetUpdatedInfo.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-
-               LinkedInFromActivityBuilder.retrieveBasicProfile(accessToken, accessTokenExpiry, new OnBasicProfileListener() {
-                   @Override
-                   public void onDataRetrievalStart() {
-
-                   }
-
-                   @Override
-                   public void onDataSuccess(LinkedInUser user) {
-                       setUserData(user);
-                   }
-
-                   @Override
-                   public void onDataFailed(int errCode, String errMessage) {
-
-                       Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                   }
-               });
-
-           }
-       });
-
     }
 
     /**
      * Sets data to UI
      */
     private void setUserData(LinkedInUser user) {
-        accessToken = user.getAccessToken();
-        accessTokenExpiry = user.getAccessTokenExpiry();
 
         Log.wtf("LINKEDIN ID", user.getId());
 
@@ -111,18 +71,14 @@ public class MainActivity extends AppCompatActivity {
         tvLName.setText(user.getLastName());
         tvEmail.setText(user.getEmail());
 
-        btnGetUpdatedInfo.setVisibility(View.VISIBLE);
-
-        if(user.getProfileUrl()!= null && !user.getProfileUrl().isEmpty()){
-            new ImageLoadTask(user.getProfileUrl(), ivUserPic).execute();
+        if (user.getProfilePictureUrl() != null && !user.getProfilePictureUrl().isEmpty()) {
+            new ImageLoadTask(user.getProfilePictureUrl(), ivUserPic).execute();
         }
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
-
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == LINKEDIN_REQUEST && data != null) {
@@ -133,8 +89,6 @@ public class MainActivity extends AppCompatActivity {
                 setUserData(user);
 
             } else {
-
-
                 //print the error
                 Log.wtf("LINKEDIN ERR", data.getStringExtra("err_message"));
 
@@ -145,11 +99,8 @@ public class MainActivity extends AppCompatActivity {
                     //some error occured
                     Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
                 }
-
-
             }
         }
-
     }
 
 
@@ -187,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(result);
             imageView.setImageBitmap(result);
         }
-
     }
 
 
@@ -198,25 +148,38 @@ public class MainActivity extends AppCompatActivity {
      * Make sure to update your linkedin credentials in the said file
      */
     private void getCredentials() {
-        try {
 
-            InputStream is = getAssets().open("linkedin-credentials.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            String json = new String(buffer, "UTF-8");
-            JSONObject linkedinCred = new JSONObject(json);
-            clientID = linkedinCred.getString("client_id");
-            clientSecret = linkedinCred.getString("client_secret");
-            redirectUrl = linkedinCred.getString("redirect_url");
+        //                <string name="linkedin_client_id" translatable="false">77uzd83rv05qdd</string>
+//    <string name="linkedin_client_secret" translatable="false">11jwfr3Jh1g6Vldb</string>
+//            private const val REDIRECT_URI = "https://www.cuju.io/android"
 
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        clientID = "77uzd83rv05qdd";
+        clientSecret = "11jwfr3Jh1g6Vldb";
+        redirectUrl = "https://www.cuju.io/android";
+
+//        try {
+//
+//            InputStream is = getAssets().open("linkedin-credentials.json");
+//            int size = is.available();
+//            byte[] buffer = new byte[size];
+//            is.read(buffer);
+//            is.close();
+//            String json = new String(buffer, "UTF-8");
+//            JSONObject linkedinCred = new JSONObject(json);
+////                <string name="linkedin_client_id" translatable="false">77uzd83rv05qdd</string>
+////    <string name="linkedin_client_secret" translatable="false">11jwfr3Jh1g6Vldb</string>
+////            private const val REDIRECT_URI = "https://www.cuju.io/android"
+//
+//            clientID = "77uzd83rv05qdd";
+//            clientSecret = "11jwfr3Jh1g6Vldb";
+//            redirectUrl = "https://www.cuju.io/android";
+//
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
     }
 }

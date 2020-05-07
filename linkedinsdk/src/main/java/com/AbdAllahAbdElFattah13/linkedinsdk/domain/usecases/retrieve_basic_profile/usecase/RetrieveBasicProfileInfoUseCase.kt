@@ -87,7 +87,7 @@ class RetrieveBasicProfileInfoUseCase(private val requestHandler: RequestHandler
                 null
             }
 
-            return LinkedInBasicProfileInfo(linkedInUserId, email, linkedInUserFirstName, linkedInUserLastName, linkedInUserProfile)
+            return LinkedInBasicProfileInfo(linkedInUserId, email, linkedInUserFirstName, linkedInUserLastName, linkedInUserProfile, accessTokenInfo.accessToken, accessTokenInfo.accessTokenExpiry)
 
         } else {
             Log.e(TAG, "Failed To Retrieve Basic Profile")

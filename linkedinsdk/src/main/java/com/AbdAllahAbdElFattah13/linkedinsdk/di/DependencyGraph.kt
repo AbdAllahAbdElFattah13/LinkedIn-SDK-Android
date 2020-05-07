@@ -7,7 +7,7 @@ import com.AbdAllahAbdElFattah13.linkedinsdk.domain.utils.RequestHandler
 import com.AbdAllahAbdElFattah13.linkedinsdk.presentation.linkedin_authentication.models.LinkedInInitializationInfo
 import com.AbdAllahAbdElFattah13.linkedinsdk.presentation.linkedin_authentication.viewmodel.LinkedInAuthenticationViewModelFactory
 
-class DI(
+class DependencyGraph(
         private val initializationInfo: LinkedInInitializationInfo,
         private val requestHandler: RequestHandler,
         private val executors: Executors

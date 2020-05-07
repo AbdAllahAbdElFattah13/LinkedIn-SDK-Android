@@ -4,11 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
 import com.AbdAllahAbdElFattah13.linkedinsdk.ui.LinkedInAuthenticationActivity;
-import com.AbdAllahAbdElFattah13.linkedinsdk.ui.RetrieveBasicProfileAsyncTask;
-import com.AbdAllahAbdElFattah13.linkedinsdk.ui.OnBasicProfileListener;
 
 import java.util.Random;
 
@@ -104,9 +100,4 @@ public abstract class LinkedInBuilder {
         this.state = sb.toString();
         intent.putExtra(STATE, state);
     }
-
-    public static void retrieveBasicProfile(@NonNull String accessToken, long accessTokenExpiry, @NonNull OnBasicProfileListener onBasicProfileListener) {
-        new RetrieveBasicProfileAsyncTask(accessToken, accessTokenExpiry, onBasicProfileListener).execute();
-    }
-
 }
