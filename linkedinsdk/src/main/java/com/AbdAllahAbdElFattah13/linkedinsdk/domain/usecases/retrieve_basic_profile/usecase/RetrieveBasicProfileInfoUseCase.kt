@@ -11,7 +11,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 
-class RetrieveBasicProfileInfo(private val requestHandler: RequestHandler) : UseCase<LinkedInAccessTokenInfo, LinkedInBasicProfileInfo>() {
+class RetrieveBasicProfileInfoUseCase(private val requestHandler: RequestHandler) : UseCase<LinkedInAccessTokenInfo, LinkedInBasicProfileInfo>() {
 
     private val TAG = "RetrieveBasicProfileInf"
 

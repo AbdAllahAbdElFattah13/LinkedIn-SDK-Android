@@ -24,6 +24,7 @@ class RetrieveAccessTokenUseCase(private val requestHandler: RequestHandler) : U
                 + LinkedInConst.SECRET_KEY_PARAM + LinkedInConst.EQUALS + inputs.clientSecretKey)
     }
 
+    @Throws(RetrieveAccessTokenError::class)
     override fun run(input: RetrieveAccessTokenInputs?): LinkedInAccessTokenInfo {
         if (input == null) throw RetrieveAccessTokenError.NullInput("RetrieveAccessTokenUseCase inputs can't be null!")
 
