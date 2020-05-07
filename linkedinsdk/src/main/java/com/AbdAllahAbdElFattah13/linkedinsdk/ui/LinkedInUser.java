@@ -1,4 +1,4 @@
-package com.AbdAllahAbdElFattah13.linkedinsdk.helpers;
+package com.AbdAllahAbdElFattah13.linkedinsdk.ui;
 
 import android.os.Parcel;
 import android.os.Parcelable;

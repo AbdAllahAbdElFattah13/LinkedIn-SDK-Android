@@ -1,4 +1,6 @@
-package com.AbdAllahAbdElFattah13.linkedinsdk.helpers;
+package com.AbdAllahAbdElFattah13.linkedinsdk.ui;
+
+import com.AbdAllahAbdElFattah13.linkedinsdk.ui.LinkedInUser;
 
 public interface OnBasicProfileListener {
     void onDataRetrievalStart();

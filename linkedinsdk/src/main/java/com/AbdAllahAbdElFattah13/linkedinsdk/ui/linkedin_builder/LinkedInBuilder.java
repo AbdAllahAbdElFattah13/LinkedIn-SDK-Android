@@ -1,4 +1,4 @@
-package com.AbdAllahAbdElFattah13.linkedinsdk.linkedin_builder;
+package com.AbdAllahAbdElFattah13.linkedinsdk.ui.linkedin_builder;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,9 +6,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.AbdAllahAbdElFattah13.linkedinsdk.LinkedInAuthenticationActivity;
-import com.AbdAllahAbdElFattah13.linkedinsdk.RetrieveBasicProfileAsyncTask;
-import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.OnBasicProfileListener;
+import com.AbdAllahAbdElFattah13.linkedinsdk.ui.LinkedInAuthenticationActivity;
+import com.AbdAllahAbdElFattah13.linkedinsdk.ui.RetrieveBasicProfileAsyncTask;
+import com.AbdAllahAbdElFattah13.linkedinsdk.ui.OnBasicProfileListener;
 
 import java.util.Random;
 

@@ -15,10 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.AbdAllahAbdElFattah13.linkedin.login.R;
-import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.LinkedInUser;
-import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.OnBasicProfileListener;
-import com.AbdAllahAbdElFattah13.linkedinsdk.linkedin_builder.LinkedInFromActivityBuilder;
+import com.AbdAllahAbdElFattah13.linkedinsdk.ui.LinkedInUser;
+import com.AbdAllahAbdElFattah13.linkedinsdk.ui.OnBasicProfileListener;
+import com.AbdAllahAbdElFattah13.linkedinsdk.ui.linkedin_builder.LinkedInFromActivityBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;

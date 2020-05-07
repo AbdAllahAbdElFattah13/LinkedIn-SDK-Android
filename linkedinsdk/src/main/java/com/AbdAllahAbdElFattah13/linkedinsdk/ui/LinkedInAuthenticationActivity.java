@@ -1,4 +1,4 @@
-package com.AbdAllahAbdElFattah13.linkedinsdk;
+package com.AbdAllahAbdElFattah13.linkedinsdk.ui;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -15,10 +15,9 @@ import android.webkit.WebViewClient;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.LinkedInUser;
-import com.AbdAllahAbdElFattah13.linkedinsdk.helpers.OnBasicProfileListener;
+import com.AbdAllahAbdElFattah13.linkedinsdk.R;
 import com.AbdAllahAbdElFattah13.linkedinsdk.domain.utils.RequestHandler;
-import com.AbdAllahAbdElFattah13.linkedinsdk.linkedin_builder.LinkedInFromActivityBuilder;
+import com.AbdAllahAbdElFattah13.linkedinsdk.ui.linkedin_builder.LinkedInFromActivityBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
