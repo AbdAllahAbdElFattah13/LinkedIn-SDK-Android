@@ -1,4 +1,4 @@
-package com.AbdAllahAbdElFattah13.linkedinsdk.helpers;
+package com.AbdAllahAbdElFattah13.linkedinsdk.ui;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -8,7 +8,7 @@ public class LinkedInUser implements Parcelable {
     private String email;
     private String firstName;
     private String lastName;
-    private String profileUrl;
+    private String profilePictureUrl;
     private String accessToken;
     private long accessTokenExpiry;
 
@@ -22,7 +22,7 @@ public class LinkedInUser implements Parcelable {
         email = in.readString();
         firstName = in.readString();
         lastName = in.readString();
-        profileUrl = in.readString();
+        profilePictureUrl = in.readString();
         accessToken = in.readString();
         accessTokenExpiry = in.readLong();
     }
@@ -33,7 +33,7 @@ public class LinkedInUser implements Parcelable {
         dest.writeString(email);
         dest.writeString(firstName);
         dest.writeString(lastName);
-        dest.writeString(profileUrl);
+        dest.writeString(profilePictureUrl);
         dest.writeString(accessToken);
         dest.writeLong(accessTokenExpiry);
     }
@@ -88,12 +88,12 @@ public class LinkedInUser implements Parcelable {
         this.lastName = lastName;
     }
 
-    public String getProfileUrl() {
-        return profileUrl;
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
     }
 
-    public void setProfileUrl(String profileUrl) {
-        this.profileUrl = profileUrl;
+    public void setProfilePictureUrl(String profilePictureUrl) {
+        this.profilePictureUrl = profilePictureUrl;
     }
 
     public String getAccessToken() {

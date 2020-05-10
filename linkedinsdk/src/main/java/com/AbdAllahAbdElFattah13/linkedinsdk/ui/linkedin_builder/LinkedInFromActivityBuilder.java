@@ -1,7 +1,6 @@
-package com.AbdAllahAbdElFattah13.linkedinsdk.linkedin_builder;
+package com.AbdAllahAbdElFattah13.linkedinsdk.ui.linkedin_builder;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 
 public final class LinkedInFromActivityBuilder extends LinkedInBuilder {

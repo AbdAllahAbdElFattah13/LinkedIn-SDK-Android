@@ -1,4 +1,4 @@
-package com.AbdAllahAbdElFattah13.linkedinsdk.linkedin_builder;
+package com.AbdAllahAbdElFattah13.linkedinsdk.ui.linkedin_builder;
 
 import android.content.Intent;
 
