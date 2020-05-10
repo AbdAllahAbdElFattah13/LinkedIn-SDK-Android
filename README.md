@@ -1,19 +1,19 @@
 # LinkedIn-SDK-Android
+[ ![Download](https://api.bintray.com/packages/abdallahabdelfattah13/maven/linkedin-sdk/images/download.svg?version=1.1.0) ](https://bintray.com/abdallahabdelfattah13/maven/linkedin-sdk/1.1.0/link)
 
-A lightweight android library to implement Login with LinkedIn in your Android app.
+A lightweight android library to implement Login with LinkedIn in your Android app, that supports both Activities and Fragments.
 
 Inspired by [shantanu-deshmukh/LinkedIn-SDK-Android](https://github.com/shantanu-deshmukh/LinkedIn-SDK-Android)
 
 
 Table of contents
 =================
+- [SDK Structure](#SDK-Structure)
 - [Main changes over the original](#Main-changes-over-the-original)
 - [Why this UnOfficial SDK?](#why-this-unofficial-sdk-)
 - [Adding the SDK to your Project](#adding-the-sdk-to-your-project)
-  * [Using JCenter](#--using-jcenter)
 - [Usage](#usage)
   * [Authenticating](#authenticating)
-  * [Retrieving updated profile](#retrieving-updated-profile)
     + [LinkedInUser Class](#linkedinuser-class)
 - [Security](#security)
 - [Contributing](#contributing)
@@ -23,34 +23,24 @@ Main changes over the original
 ========================
 - [x] Add support for usage from fragments.
 - [ ] Better error handling.
-- [ ] Kotlin-lize the SDK since now Kotlin is the main dev language for Android.
+- [x] Kotlin-lize the SDK since now Kotlin is the main dev language for Android.
 
+SDK Structure 
+========================
+The SDK follows the [clean architecture principles](https://five.agency/android-architecture-part-1-every-new-beginning-is-hard/), so it's mainly devided into use cases, data, presentation(MVVM) and ui layers. Each has its own package, with manual [dependancy injection](https://en.wikipedia.org/wiki/Dependency_injection) system to inject them when needed.
 
 Why this UnOfficial SDK?
 ========================
 * [Existing SDKs have been discontinued.](https://engineering.linkedin.com/blog/2018/12/developer-program-updates)
 * [Official docs](https://developer.linkedin.com/docs/android-sdk-auth) on developer.linkedin.com are outdated. 
-* Weird JSON returned by the new APIs. See following example: 
-```json
-{
-    "handle": "urn:li:emailAddress:3775708763",
-    "handle~": {
-        "emailAddress": "hsimpson@linkedin.com"
-    }
-}
-```
-Variable names in JAVA cannot have `~`, so you cannot use dynamic JSON parsers OR networking libraries like Retrofit.
-
 
 Adding the SDK to your Project
 ===============================
-Using JCenter
------------------------
 Just add the dependency to your app level `build.gradle` file
 
 ```gradle
 dependencies {
-    implementation 'com.AbdAllahAbdElFattah13:linkedinsdk:1.0.0'
+    implementation 'com.AbdAllahAbdElFattah13:linkedinsdk:1.1.0'
 }
 ```
 
@@ -117,28 +107,6 @@ Authenticating
         }
 
     }
-
-```
-
-Retrieving updated profile
--------------------------------
-```Java
-LinkedInBuilder.retrieveBasicProfile(linkedInUser.getAccessToken(), linkedInUser.getAccessTokenExpiry(), new OnBasicProfileListener() {
-                    @Override
-                    public void onDataRetrievalStart() {
-                        //show progress bar if required
-                    }
-
-                    @Override
-                    public void onDataSuccess(LinkedInUser linkedInUser) {
-                        //handle retrived data
-                    }
-
-                    @Override
-                    public void onDataFailed(int errCode, String errMessage) {
-                        //handle error
-                    }
-                });
 
 ```
 
