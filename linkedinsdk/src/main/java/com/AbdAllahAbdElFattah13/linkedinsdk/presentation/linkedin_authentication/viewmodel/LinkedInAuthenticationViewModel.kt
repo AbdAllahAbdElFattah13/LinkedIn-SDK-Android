@@ -43,6 +43,8 @@ class LinkedInAuthenticationViewModel(
                 _state.value = LinkedInAuthenticationState.AccessTokenRetrievedSuccessfully(accessTokenInfo)
             }
 
+            //if only the token, no need to continue the profile request.
+
             val profileInfo = try {
                 retrieveBasicProfileInfoUseCase.run(accessTokenInfo)
             } catch (e: RetrieveBasicProfileInfoError) {

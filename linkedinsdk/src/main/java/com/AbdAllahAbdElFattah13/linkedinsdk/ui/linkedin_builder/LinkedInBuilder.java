@@ -16,6 +16,7 @@ public abstract class LinkedInBuilder {
 
     private Intent intent;
     private String state;
+    private boolean accessTokenRetrievalOnlyRequest = false;
 
     public static final String CLIENT_ID = "client_id";
     public static final String CLIENT_SECRET_KEY = "client_secret";
@@ -55,6 +56,11 @@ public abstract class LinkedInBuilder {
     public LinkedInBuilder setState(String state) {
         this.state = state;
         updateIntent(STATE, state);
+        return self();
+    }
+
+    public LinkedInBuilder setAccessTokenRetrievalOnlyRequest(boolean accessTokenRetrievalOnlyRequest) {
+        this.accessTokenRetrievalOnlyRequest = accessTokenRetrievalOnlyRequest;
         return self();
     }
 
