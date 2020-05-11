@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.AbdAllahAbdElFattah13.linkedinsdk.R
 import com.AbdAllahAbdElFattah13.linkedinsdk.di.DependencyGraph
+import com.AbdAllahAbdElFattah13.linkedinsdk.domain.usecases.retrieve_access_token.models.LinkedInAccessTokenInfo
+import com.AbdAllahAbdElFattah13.linkedinsdk.domain.usecases.retrieve_basic_profile.models.LinkedInBasicProfileInfo
 import com.AbdAllahAbdElFattah13.linkedinsdk.domain.utils.Executors
 import com.AbdAllahAbdElFattah13.linkedinsdk.domain.utils.LinkedInConst.RESPONSE_TYPE_VALUE
 import com.AbdAllahAbdElFattah13.linkedinsdk.domain.utils.LinkedInConst.getAuthorizationUrl
@@ -65,6 +67,8 @@ class LinkedInAuthenticationActivity : AppCompatActivity() {
                 }
                 is LinkedInAuthenticationState.AccessTokenRetrievedSuccessfully -> {
                     setProgressDialogVisibility(false)
+                    val linkedinUser: LinkedInUser = createLinkedInUser(state.accessTokenInfo)
+                    returnResultBack(linkedinUser)
                 }
                 is LinkedInAuthenticationState.FailedToRetrieveAccessToken -> {
                     setProgressDialogVisibility(false)
@@ -72,22 +76,8 @@ class LinkedInAuthenticationActivity : AppCompatActivity() {
                 is LinkedInAuthenticationState.BasicProfileRetrievedSuccessfully -> {
                     setProgressDialogVisibility(false)
 
-                    val linkedinUser = LinkedInUser()
-                    state.profileInfo.apply {
-                        linkedinUser.id = id
-                        linkedinUser.email = email
-                        linkedinUser.firstName = firstName
-                        linkedinUser.lastName = lastName
-                        linkedinUser.profilePictureUrl = profilePictureUrl
-                        linkedinUser.accessToken = accessToken
-                        linkedinUser.accessTokenExpiry = accessTokenExpiry
-                    }
-
-                    val outputIntent = Intent().apply {
-                        putExtra("social_login", linkedinUser)
-                    }
-                    setResult(Activity.RESULT_OK, outputIntent)
-                    finish()
+                    val linkedinUser: LinkedInUser = createLinkedInUser(state.profileInfo)
+                    returnResultBack(linkedinUser)
                 }
                 is LinkedInAuthenticationState.FailedToRetrieveProfile -> {
                     setProgressDialogVisibility(false)
@@ -156,6 +146,33 @@ class LinkedInAuthenticationActivity : AppCompatActivity() {
                 progressDialog.dismiss()
             }
         }
+    }
+
+    private fun createLinkedInUser(accessTokenInfo: LinkedInAccessTokenInfo): LinkedInUser {
+        return LinkedInUser().apply {
+            accessToken = accessTokenInfo.accessToken
+            accessTokenExpiry = accessTokenInfo.accessTokenExpiry
+        }
+    }
+
+    private fun createLinkedInUser(basicProfileInfo: LinkedInBasicProfileInfo): LinkedInUser {
+        return LinkedInUser().apply {
+            id = basicProfileInfo.id
+            email = basicProfileInfo.email
+            firstName = basicProfileInfo.firstName
+            lastName = basicProfileInfo.lastName
+            profilePictureUrl = basicProfileInfo.profilePictureUrl
+            accessToken = basicProfileInfo.accessToken
+            accessTokenExpiry = basicProfileInfo.accessTokenExpiry
+        }
+    }
+
+    private fun returnResultBack(linkedinUser: LinkedInUser) {
+        val outputIntent = Intent().apply {
+            putExtra("social_login", linkedinUser)
+        }
+        setResult(Activity.RESULT_OK, outputIntent)
+        finish()
     }
 
     companion object {

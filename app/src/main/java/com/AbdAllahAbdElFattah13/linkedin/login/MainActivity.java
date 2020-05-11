@@ -18,7 +18,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.AbdAllahAbdElFattah13.linkedinsdk.ui.LinkedInUser;
 import com.AbdAllahAbdElFattah13.linkedinsdk.ui.linkedin_builder.LinkedInFromActivityBuilder;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -55,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
                         .setClientSecret(clientSecret)
                         .setRedirectURI(redirectUrl)
                         .authenticate(LINKEDIN_REQUEST);
-
             }
         });
     }
@@ -148,38 +152,25 @@ public class MainActivity extends AppCompatActivity {
      * Make sure to update your linkedin credentials in the said file
      */
     private void getCredentials() {
+        try {
 
-        //                <string name="linkedin_client_id" translatable="false">77uzd83rv05qdd</string>
-//    <string name="linkedin_client_secret" translatable="false">11jwfr3Jh1g6Vldb</string>
-//            private const val REDIRECT_URI = "https://www.cuju.io/android"
+            InputStream is = getAssets().open("linkedin-credentials.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            String json = new String(buffer, "UTF-8");
+            JSONObject linkedinCred = new JSONObject(json);
+            clientID = linkedinCred.getString("client_id");
+            clientSecret = linkedinCred.getString("client_secret");
+            redirectUrl = linkedinCred.getString("redirect_url");
 
-        clientID = "77uzd83rv05qdd";
-        clientSecret = "11jwfr3Jh1g6Vldb";
-        redirectUrl = "https://www.cuju.io/android";
-
-//        try {
-//
-//            InputStream is = getAssets().open("linkedin-credentials.json");
-//            int size = is.available();
-//            byte[] buffer = new byte[size];
-//            is.read(buffer);
-//            is.close();
-//            String json = new String(buffer, "UTF-8");
-//            JSONObject linkedinCred = new JSONObject(json);
-////                <string name="linkedin_client_id" translatable="false">77uzd83rv05qdd</string>
-////    <string name="linkedin_client_secret" translatable="false">11jwfr3Jh1g6Vldb</string>
-////            private const val REDIRECT_URI = "https://www.cuju.io/android"
-//
-//            clientID = "77uzd83rv05qdd";
-//            clientSecret = "11jwfr3Jh1g6Vldb";
-//            redirectUrl = "https://www.cuju.io/android";
-//
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
