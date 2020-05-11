@@ -39,8 +39,12 @@ class LinkedInAuthenticationViewModel(
                 }
                 return@execute
             }
-            executors.mainThread().execute {
-                _state.value = LinkedInAuthenticationState.AccessTokenRetrievedSuccessfully(accessTokenInfo)
+            //if only the token, no need to continue the profile request.
+            if (initializationInfo.accessTokenOnlyRequest) {
+                executors.mainThread().execute {
+                    _state.value = LinkedInAuthenticationState.AccessTokenRetrievedSuccessfully(accessTokenInfo)
+                }
+                return@execute
             }
 
             val profileInfo = try {

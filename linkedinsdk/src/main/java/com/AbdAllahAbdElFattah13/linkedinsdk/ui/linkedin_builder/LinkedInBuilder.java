@@ -16,11 +16,13 @@ public abstract class LinkedInBuilder {
 
     private Intent intent;
     private String state;
+    private boolean accessTokenRetrievalOnlyRequest = false;
 
     public static final String CLIENT_ID = "client_id";
     public static final String CLIENT_SECRET_KEY = "client_secret";
     public static final String REDIRECT_URI = "redirect_uri";
     public static final String STATE = "state";
+    public static final String ACCESS_TOKEN_ONLY = "access_token_only";
 
     public static final String TAG = "LinkedInAuth";
 
@@ -55,6 +57,12 @@ public abstract class LinkedInBuilder {
     public LinkedInBuilder setState(String state) {
         this.state = state;
         updateIntent(STATE, state);
+        return self();
+    }
+
+    public LinkedInBuilder setAccessTokenRetrievalOnlyRequest(boolean accessTokenRetrievalOnlyRequest) {
+        this.accessTokenRetrievalOnlyRequest = accessTokenRetrievalOnlyRequest;
+        intent.putExtra(ACCESS_TOKEN_ONLY, accessTokenRetrievalOnlyRequest);
         return self();
     }
 

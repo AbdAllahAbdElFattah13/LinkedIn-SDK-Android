@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.AbdAllahAbdElFattah13.linkedinsdk.R
 import com.AbdAllahAbdElFattah13.linkedinsdk.di.DependencyGraph
+import com.AbdAllahAbdElFattah13.linkedinsdk.domain.usecases.retrieve_access_token.models.LinkedInAccessTokenInfo
+import com.AbdAllahAbdElFattah13.linkedinsdk.domain.usecases.retrieve_basic_profile.models.LinkedInBasicProfileInfo
 import com.AbdAllahAbdElFattah13.linkedinsdk.domain.utils.Executors
 import com.AbdAllahAbdElFattah13.linkedinsdk.domain.utils.LinkedInConst.RESPONSE_TYPE_VALUE
 import com.AbdAllahAbdElFattah13.linkedinsdk.domain.utils.LinkedInConst.getAuthorizationUrl
@@ -26,7 +28,18 @@ import kotlinx.android.synthetic.main.linkedin_activity_linkedin_authentication.
 
 class LinkedInAuthenticationActivity : AppCompatActivity() {
 
-    private var progressDialog: AlertDialog? = null
+    private val clientId: String by lazy { intent.getStringExtra(LinkedInFromActivityBuilder.CLIENT_ID) }
+    private val clientSecretKey by lazy { intent.getStringExtra(LinkedInFromActivityBuilder.CLIENT_SECRET_KEY) }
+    private val redirectUri: String by lazy { intent.getStringExtra(LinkedInFromActivityBuilder.REDIRECT_URI) }
+    private val state: String by lazy { intent.getStringExtra(LinkedInFromActivityBuilder.STATE) }
+    private val accessTokenOnlyRequest: Boolean by lazy { intent.getBooleanExtra(LinkedInFromActivityBuilder.ACCESS_TOKEN_ONLY, false) }
+
+    private val progressDialog: AlertDialog by lazy {
+        AlertDialog.Builder(this@LinkedInAuthenticationActivity)
+                .setCancelable(false)
+                .setView(R.layout.linkedin_layout_progress_dialog)
+                .create()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,15 +48,9 @@ class LinkedInAuthenticationActivity : AppCompatActivity() {
         //enable fullscreen mode
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        if (supportActionBar != null) {
-            supportActionBar!!.hide()
-        }
-        CLIENT_ID = intent.getStringExtra(LinkedInFromActivityBuilder.CLIENT_ID)
-        CLIENT_SECRET_KEY = intent.getStringExtra(LinkedInFromActivityBuilder.CLIENT_SECRET_KEY)
-        REDIRECT_URI = intent.getStringExtra(LinkedInFromActivityBuilder.REDIRECT_URI)
-        STATE = intent.getStringExtra(LinkedInFromActivityBuilder.STATE)
+        supportActionBar?.hide()
 
-        val dependencyGraph = createDependencyGraph(CLIENT_ID, CLIENT_SECRET_KEY, REDIRECT_URI)
+        val dependencyGraph = createDependencyGraph(clientId, clientSecretKey, redirectUri, accessTokenOnlyRequest)
         val vm = dependencyGraph
                 .providesLinkedInAuthenticationViewModelFactory().create(LinkedInAuthenticationViewModel::class.java)
 
@@ -60,6 +67,8 @@ class LinkedInAuthenticationActivity : AppCompatActivity() {
                 }
                 is LinkedInAuthenticationState.AccessTokenRetrievedSuccessfully -> {
                     setProgressDialogVisibility(false)
+                    val linkedinUser: LinkedInUser = createLinkedInUser(state.accessTokenInfo)
+                    returnResultBack(linkedinUser)
                 }
                 is LinkedInAuthenticationState.FailedToRetrieveAccessToken -> {
                     setProgressDialogVisibility(false)
@@ -67,22 +76,8 @@ class LinkedInAuthenticationActivity : AppCompatActivity() {
                 is LinkedInAuthenticationState.BasicProfileRetrievedSuccessfully -> {
                     setProgressDialogVisibility(false)
 
-                    val linkedinUser = LinkedInUser()
-                    state.profileInfo.apply {
-                        linkedinUser.id = id
-                        linkedinUser.email = email
-                        linkedinUser.firstName = firstName
-                        linkedinUser.lastName = lastName
-                        linkedinUser.profilePictureUrl = profilePictureUrl
-                        linkedinUser.accessToken = accessToken
-                        linkedinUser.accessTokenExpiry = accessTokenExpiry
-                    }
-
-                    val outputIntent = Intent().apply {
-                        putExtra("social_login", linkedinUser)
-                    }
-                    setResult(Activity.RESULT_OK, outputIntent)
-                    finish()
+                    val linkedinUser: LinkedInUser = createLinkedInUser(state.profileInfo)
+                    returnResultBack(linkedinUser)
                 }
                 is LinkedInAuthenticationState.FailedToRetrieveProfile -> {
                     setProgressDialogVisibility(false)
@@ -107,11 +102,11 @@ class LinkedInAuthenticationActivity : AppCompatActivity() {
             //to support below Android N we need to use the deprecated method only
             override fun shouldOverrideUrlLoading(view: WebView, authorizationUrl: String): Boolean {
                 setProgressDialogVisibility(true)
-                if (authorizationUrl.startsWith(REDIRECT_URI)) {
+                if (authorizationUrl.startsWith(redirectUri)) {
                     val uri = Uri.parse(authorizationUrl)
                     //vm.onRedirect(uri);
                     val stateToken = uri.getQueryParameter(STATE_PARAM)
-                    if (stateToken == null || stateToken != STATE) {
+                    if (stateToken == null || stateToken != state) {
                         Log.e(LinkedInFromActivityBuilder.TAG, "State token doesn't match")
                         return true
                     }
@@ -134,40 +129,53 @@ class LinkedInAuthenticationActivity : AppCompatActivity() {
                 return true
             }
         }
-        val authUrl = getAuthorizationUrl(CLIENT_ID, REDIRECT_URI, STATE)
+        val authUrl = getAuthorizationUrl(clientId, redirectUri, state)
         web_view_linkedin_login.loadUrl(authUrl)
     }
 
-    private fun createDependencyGraph(clientId: String, clientSecret: String, redirectUri: String): DependencyGraph {
-        val linkedInInitializationInfo = LinkedInInitializationInfo(clientId, clientSecret, redirectUri)
+    private fun createDependencyGraph(clientId: String, clientSecret: String, redirectUri: String, accessTokenOnlyRequest: Boolean): DependencyGraph {
+        val linkedInInitializationInfo = LinkedInInitializationInfo(clientId, clientSecret, redirectUri, accessTokenOnlyRequest)
         return DependencyGraph(linkedInInitializationInfo, RequestHandler, Executors())
     }
 
     private fun setProgressDialogVisibility(show: Boolean) {
         if (!this@LinkedInAuthenticationActivity.isFinishing) {
             if (show) {
-                if (progressDialog == null) {
-                    val builder = AlertDialog.Builder(this@LinkedInAuthenticationActivity)
-                    builder.setCancelable(false) // if you want user to wait for some process to finish,
-                    builder.setView(R.layout.linkedin_layout_progress_dialog)
-                    progressDialog = builder.create()
-                }
-                progressDialog!!.show()
+                progressDialog.show()
             } else {
-                if (progressDialog != null) {
-                    progressDialog!!.dismiss()
-                }
+                progressDialog.dismiss()
             }
         }
     }
 
-    companion object {
-        private var CLIENT_ID: String = ""
-        private var CLIENT_SECRET_KEY = ""
-        private var REDIRECT_URI: String = ""
+    private fun createLinkedInUser(accessTokenInfo: LinkedInAccessTokenInfo): LinkedInUser {
+        return LinkedInUser().apply {
+            accessToken = accessTokenInfo.accessToken
+            accessTokenExpiry = accessTokenInfo.accessTokenExpiry
+        }
+    }
 
-        //for security
-        private var STATE: String = ""
+    private fun createLinkedInUser(basicProfileInfo: LinkedInBasicProfileInfo): LinkedInUser {
+        return LinkedInUser().apply {
+            id = basicProfileInfo.id
+            email = basicProfileInfo.email
+            firstName = basicProfileInfo.firstName
+            lastName = basicProfileInfo.lastName
+            profilePictureUrl = basicProfileInfo.profilePictureUrl
+            accessToken = basicProfileInfo.accessToken
+            accessTokenExpiry = basicProfileInfo.accessTokenExpiry
+        }
+    }
+
+    private fun returnResultBack(linkedinUser: LinkedInUser) {
+        val outputIntent = Intent().apply {
+            putExtra("social_login", linkedinUser)
+        }
+        setResult(Activity.RESULT_OK, outputIntent)
+        finish()
+    }
+
+    companion object {
         private const val STATE_PARAM = "state"
     }
 }
