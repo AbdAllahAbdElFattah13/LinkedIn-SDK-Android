@@ -23,16 +23,16 @@ import com.AbdAllahAbdElFattah13.linkedinsdk.domain.utils.RequestHandler
 import com.AbdAllahAbdElFattah13.linkedinsdk.presentation.linkedin_authentication.models.LinkedInAuthenticationState
 import com.AbdAllahAbdElFattah13.linkedinsdk.presentation.linkedin_authentication.models.LinkedInInitializationInfo
 import com.AbdAllahAbdElFattah13.linkedinsdk.presentation.linkedin_authentication.viewmodel.LinkedInAuthenticationViewModel
-import com.AbdAllahAbdElFattah13.linkedinsdk.ui.linkedin_builder.LinkedInFromActivityBuilder
+import com.AbdAllahAbdElFattah13.linkedinsdk.ui.linkedin_builder.LinkedInBuilder
 import kotlinx.android.synthetic.main.linkedin_activity_linkedin_authentication.*
 
 class LinkedInAuthenticationActivity : AppCompatActivity() {
 
-    private val clientId: String by lazy { intent.getStringExtra(LinkedInFromActivityBuilder.CLIENT_ID) }
-    private val clientSecretKey by lazy { intent.getStringExtra(LinkedInFromActivityBuilder.CLIENT_SECRET_KEY) }
-    private val redirectUri: String by lazy { intent.getStringExtra(LinkedInFromActivityBuilder.REDIRECT_URI) }
-    private val state: String by lazy { intent.getStringExtra(LinkedInFromActivityBuilder.STATE) }
-    private val accessTokenOnlyRequest: Boolean by lazy { intent.getBooleanExtra(LinkedInFromActivityBuilder.ACCESS_TOKEN_ONLY, false) }
+    private val clientId: String by lazy { intent.getStringExtra(LinkedInBuilder.CLIENT_ID) }
+    private val clientSecretKey by lazy { intent.getStringExtra(LinkedInBuilder.CLIENT_SECRET_KEY) }
+    private val redirectUri: String by lazy { intent.getStringExtra(LinkedInBuilder.REDIRECT_URI) }
+    private val state: String by lazy { intent.getStringExtra(LinkedInBuilder.STATE) }
+    private val accessTokenOnlyRequest: Boolean by lazy { intent.getBooleanExtra(LinkedInBuilder.ACCESS_TOKEN_ONLY, false) }
 
     private val progressDialog: AlertDialog by lazy {
         AlertDialog.Builder(this@LinkedInAuthenticationActivity)
@@ -107,7 +107,7 @@ class LinkedInAuthenticationActivity : AppCompatActivity() {
                     //vm.onRedirect(uri);
                     val stateToken = uri.getQueryParameter(STATE_PARAM)
                     if (stateToken == null || stateToken != state) {
-                        Log.e(LinkedInFromActivityBuilder.TAG, "State token doesn't match")
+                        Log.e(LinkedInBuilder.TAG, "State token doesn't match")
                         return true
                     }
 
@@ -115,7 +115,7 @@ class LinkedInAuthenticationActivity : AppCompatActivity() {
                     val authorizationToken = uri.getQueryParameter(RESPONSE_TYPE_VALUE)
                     if (authorizationToken == null) {
                         val intent = Intent()
-                        intent.putExtra("err_code", LinkedInFromActivityBuilder.ERROR_USER_DENIED)
+                        intent.putExtra("err_code", LinkedInBuilder.ERROR_USER_DENIED)
                         intent.putExtra("err_message", "Authorization not received. User didn't allow access to account.")
                         setResult(Activity.RESULT_CANCELED, intent)
                         finish()
@@ -149,22 +149,27 @@ class LinkedInAuthenticationActivity : AppCompatActivity() {
     }
 
     private fun createLinkedInUser(accessTokenInfo: LinkedInAccessTokenInfo): LinkedInUser {
-        return LinkedInUser().apply {
-            accessToken = accessTokenInfo.accessToken
-            accessTokenExpiry = accessTokenInfo.accessTokenExpiry
-        }
+        return LinkedInUser(
+                id = null,
+                email = null,
+                firstName = null,
+                lastName = null,
+                profilePictureUrl = null,
+                accessToken = accessTokenInfo.accessToken,
+                accessTokenExpiry = accessTokenInfo.accessTokenExpiry
+        )
     }
 
     private fun createLinkedInUser(basicProfileInfo: LinkedInBasicProfileInfo): LinkedInUser {
-        return LinkedInUser().apply {
-            id = basicProfileInfo.id
-            email = basicProfileInfo.email
-            firstName = basicProfileInfo.firstName
-            lastName = basicProfileInfo.lastName
-            profilePictureUrl = basicProfileInfo.profilePictureUrl
-            accessToken = basicProfileInfo.accessToken
-            accessTokenExpiry = basicProfileInfo.accessTokenExpiry
-        }
+        return LinkedInUser(
+                id = basicProfileInfo.id,
+                email = basicProfileInfo.email,
+                firstName = basicProfileInfo.firstName,
+                lastName = basicProfileInfo.lastName,
+                profilePictureUrl = basicProfileInfo.profilePictureUrl,
+                accessToken = basicProfileInfo.accessToken,
+                accessTokenExpiry = basicProfileInfo.accessTokenExpiry
+        )
     }
 
     private fun returnResultBack(linkedinUser: LinkedInUser) {
