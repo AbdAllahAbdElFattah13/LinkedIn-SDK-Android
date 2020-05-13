@@ -36,8 +36,8 @@ ext {
     arch_version = "2.1.0"
 
     // LinkedIn SDK Library Info
-    libVersionCode = 2
-    libVersionName = '1.1.0'
+    libVersionCode = 3
+    libVersionName = '1.2.0'
 
     libPomUrl = 'https://github.com/AbdAllahAbdElFattah13/LinkedIn-SDK-Android'
     libGithubRepo = 'AbdAllahAbdElFattah13/LinkedIn-SDK-Android'

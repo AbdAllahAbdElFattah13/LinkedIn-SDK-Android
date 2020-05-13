@@ -1,5 +1,5 @@
 # LinkedIn-SDK-Android
-[ ![Download](https://api.bintray.com/packages/abdallahabdelfattah13/maven/linkedin-sdk/images/download.svg?version=1.1.0) ](https://bintray.com/abdallahabdelfattah13/maven/linkedin-sdk/1.1.0/link)
+[ ![Download](https://api.bintray.com/packages/abdallahabdelfattah13/maven/linkedin-sdk/images/download.svg?version=1.2.0) ](https://bintray.com/abdallahabdelfattah13/maven/linkedin-sdk/1.2.0/link)
 
 A lightweight android library to implement Login with LinkedIn in your Android app, that supports both Activities and Fragments.
 
@@ -8,8 +8,9 @@ Inspired by [shantanu-deshmukh/LinkedIn-SDK-Android](https://github.com/shantanu
 
 Table of contents
 =================
-- [SDK Structure](#SDK-Structure)
+- [Targeted use cases](#Targeted-use-cases)
 - [Main changes over the original](#Main-changes-over-the-original)
+- [SDK Structure](#SDK-Structure)
 - [Why this UnOfficial SDK?](#why-this-unofficial-sdk-)
 - [Adding the SDK to your Project](#adding-the-sdk-to-your-project)
 - [Usage](#usage)
@@ -19,11 +20,43 @@ Table of contents
 - [Contributing](#contributing)
 
 
+Targeted use cases
+========================
+This SDK was desigend to be used to authonticate with LinkedIn mainly for two use cases:
+1. If you want only to retreive a user's access token.
+    * For exmaple to be sent the a back end serever via your own APIs for futher processing and data fetching.
+2. If you want to get the user's lite profile.
+    * For simpler login process and to get his user name and profile picture.
+
+You can chosse which one you best suits you, simply using the `setAccessTokenRetrievalOnlyRequest(accessTokenRetrievalOnlyRequest: Boolean)` method in `LinkedInBuilder` object.
+
+For example:
+```Kotlin
+LinkedInFromFragmentBuilder.getInstance(MainActivity.this)
+    .setClientID(clientID)
+    .setAccessTokenRetrievalOnlyRequest(true)
+    .setClientSecret(clientSecret)
+    .setRedirectURI(redirectUrl)
+    .authenticate(LINKEDIN_REQUEST);
+```
+will only try to retreive user access token while the following the try to get the lite profile as well
+```Kotlin
+LinkedInFromFragmentBuilder.getInstance(MainActivity.this)
+    .setClientID(clientID)
+    .setAccessTokenRetrievalOnlyRequest(false)
+    .setClientSecret(clientSecret)
+    .setRedirectURI(redirectUrl)
+    .authenticate(LINKEDIN_REQUEST);
+```
+> This flag defualts to *false* for backward compatibility reasons.
+
+
 Main changes over the original
 ========================
 - [x] Add support for usage from fragments.
-- [ ] Better error handling.
+- [x] Allow for access token only request.
 - [x] Kotlin-lize the SDK since now Kotlin is the main dev language for Android.
+- [ ] Better error handling.
 
 SDK Structure 
 ========================
@@ -60,7 +93,7 @@ Authenticating
 
 2. Initiate Login Request. (You might want to do this on click of a login button)
     * From within fragments:
-    ```Java
+    ```Kotlin
     LinkedInFromFragmentBuilder.getInstance(MainActivity.this)
             .setClientID("<YOUR_CLIENT_ID_HERE>")
             .setClientSecret("<YOUR_CLIENT_SECRET_HERE>")
@@ -69,9 +102,9 @@ Authenticating
     ```
 
     * From within activities:
-    ```Java
+    ```Kotlin
     LinkedInFromActivityBuilder.getInstance(MainActivity.this)
-            .setClientID("<YOUR_CLIENT_ID_HERE>")
+            .setClientID(Œ"<YOUR_CLIENT_ID_HERE>")
             .setClientSecret("<YOUR_CLIENT_SECRET_HERE>")
             .setRedirectURI("<YOUR_REDIRECT_URL_HERE>")
             .authenticate(LINKEDIN_REQUEST_CODE);
@@ -80,7 +113,7 @@ Authenticating
 
 3. Handling Result: the sdk returns `LinkedInUser` object which contains the result data.
 
-```java
+```Java
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -129,7 +162,7 @@ Security
 To protect against [CSRF](https://en.wikipedia.org/wiki/Cross-site_request_forgery) during authorization, the sdk uses a 16 character token by default. If you want to use your own CSRF token, then use the `setState` method of the `LinkedInBuilder` class.
 
 * From within fragments:
-```Java
+```Kotlin
 LinkedInFromFragmentBuilder.getInstance(MainActivity.this)
         .setClientID("<YOUR_CLIENT_ID_HERE>")
         .setClientSecret("<YOUR_CLIENT_SECRET_HERE>")
@@ -139,7 +172,7 @@ LinkedInFromFragmentBuilder.getInstance(MainActivity.this)
 ```
 
 * From within activities:
-```Java
+```Kotlin
 LinkedInFromActivityBuilder.getInstance(MainActivity.this)
         .setClientID("<YOUR_CLIENT_ID_HERE>")
         .setClientSecret("<YOUR_CLIENT_SECRET_HERE>")
