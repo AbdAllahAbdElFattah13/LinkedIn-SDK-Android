@@ -22,13 +22,13 @@ Table of contents
 
 Targeted use cases
 ========================
-This SDK was desigend to be used to authonticate with LinkedIn mainly for two use cases:
-1. If you want only to retreive a user's access token.
-    * For exmaple to be sent the a back end serever via your own APIs for futher processing and data fetching.
+This SDK was designed to be used to authenticate with LinkedIn mainly for two use cases:
+1. If you want only to retrieve a user's access token.
+    * For example to be sent the a back end server via your own APIs for further processing and data fetching.
 2. If you want to get the user's lite profile.
     * For simpler login process and to get his user name and profile picture.
 
-You can chosse which one you best suits you, simply using the `setAccessTokenRetrievalOnlyRequest(accessTokenRetrievalOnlyRequest: Boolean)` method in `LinkedInBuilder` object.
+You can choose which one you best suits you, simply using the `setAccessTokenRetrievalOnlyRequest(accessTokenRetrievalOnlyRequest: Boolean)` method in `LinkedInBuilder` object.
 
 For example:
 ```Kotlin
@@ -39,7 +39,7 @@ LinkedInFromFragmentBuilder.getInstance(MainActivity.this)
     .setRedirectURI(redirectUrl)
     .authenticate(LINKEDIN_REQUEST);
 ```
-will only try to retreive user access token while the following the try to get the lite profile as well
+will only try to retrieve user access token while the following the try to get the lite profile as well
 ```Kotlin
 LinkedInFromFragmentBuilder.getInstance(MainActivity.this)
     .setClientID(clientID)
@@ -48,7 +48,7 @@ LinkedInFromFragmentBuilder.getInstance(MainActivity.this)
     .setRedirectURI(redirectUrl)
     .authenticate(LINKEDIN_REQUEST);
 ```
-> This flag defualts to *false* for backward compatibility reasons.
+> This flag defaults to *false* for backward compatibility reasons.
 
 
 Main changes over the original
@@ -60,7 +60,7 @@ Main changes over the original
 
 SDK Structure 
 ========================
-The SDK follows the [clean architecture principles](https://five.agency/android-architecture-part-1-every-new-beginning-is-hard/), so it's mainly devided into use cases, data, presentation(MVVM) and ui layers. Each has its own package, with manual [dependancy injection](https://en.wikipedia.org/wiki/Dependency_injection) system to inject them when needed.
+The SDK follows the [clean architecture principles](https://five.agency/android-architecture-part-1-every-new-beginning-is-hard/), so it's mainly divided into use cases, data, presentation(MVVM) and ui layers. Each has its own package, with manual [dependency injection](https://en.wikipedia.org/wiki/Dependency_injection) system to inject them when needed.
 
 Why this UnOfficial SDK?
 ========================
