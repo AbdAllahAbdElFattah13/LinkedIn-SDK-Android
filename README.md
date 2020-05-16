@@ -73,7 +73,7 @@ Just add the dependency to your app level `build.gradle` file
 
 ```gradle
 dependencies {
-    implementation 'com.AbdAllahAbdElFattah13:linkedinsdk:1.1.0'
+    implementation 'com.AbdAllahAbdElFattah13:linkedinsdk:1.2.0'
 }
 ```
 
